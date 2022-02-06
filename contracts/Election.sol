@@ -11,8 +11,12 @@ contract Election {
     // Store Candidates
     // Fetch Candidate
     mapping(uint256 => candidate) public candidates;
+
     // Store Candidates Count
     uint256 public candidatesCount;
+
+    // voted event
+    event votedEvent(uint256 indexed _candidateId);
 
     constructor() public {
         addCandidate("Sabu sir");
@@ -33,5 +37,8 @@ contract Election {
 
         voters[msg.sender] = true;
         candidates[_candidateId].voteCount++;
+
+        // trigger voted event
+        emit votedEvent(_candidateId);
     }
 }
